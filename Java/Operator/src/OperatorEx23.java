@@ -17,9 +17,9 @@ public class OperatorEx23 {
 /*
 " abc" == "abc" ? true
 str1=="abc" ? true
-str2=="abc" ? false
+str2=="abc" ? false             다른객채라 false이다
 str1.equals("abc") ? true
-str2.equals("abc") ? true
+str2.equals("abc") ? true       equals는 내용만 비교한다
 str2.equals("ABC") ? false
-str2.equalsIgnoreCase("ABC") ? true
+str2.equalsIgnoreCase("ABC") ? true     대소문자구별하지않는 함수이다.
  */
