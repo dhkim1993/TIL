@@ -1,4 +1,4 @@
-public class OperatroEx26 {
+public class OperatorEx26 {
     public static void main(String[] args) {
 
         int a = 5;
