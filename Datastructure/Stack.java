@@ -1,12 +1,11 @@
 import java.util.*;
 
-
 public class Stack {
     public static void main(String[] args) {
 
         String op, an, N = "n";  //  operator 명령어 라는 뜻 answer은 계속 동잘 할껀지 대답 요구 변수
         int stack[] = new int[5];   // 5만큼 크기의 배열 선언
-        int loop, i, x, p, s, t, sum = 0, index = 0;     // x는 정수값 index는 배열 인덱스값
+        int loop, i, x, p, s, t, e, sum = 0, index = 0;     // x는 정수값 index는 배열 인덱스값
 
 
         do {
@@ -17,6 +16,10 @@ public class Stack {
             switch (op) {
 
                 case "push":
+                    if(stack[4] !=0){
+                        System.out.println("스택이 꽉 찼습니다.");
+                        break;
+                    }
                     System.out.print("정수를 입력하세요 : ");
                     x = input.nextInt();
 
@@ -29,14 +32,20 @@ public class Stack {
                     }
                     break;
 
+
                 case "pop":
                     for (p = 4; p >= 0; p--)
                         if (stack[p] != 0) {
                             System.out.println(stack[p]);
                             stack[p] = 0;
                             break;
+                        } else {
+                            System.out.print("-1");
+                            break;
                         }
+
                     break;
+
 
                 case "size":
                     for (s = 0; s < 5; s++) {
@@ -47,6 +56,7 @@ public class Stack {
                     System.out.println(sum);
                     break;
 
+
                 case "top":
                     for (t = 4; t >= 0; t--) {
                         if (stack[t] != 0) {
@@ -56,14 +66,30 @@ public class Stack {
                     }
                     break;
 
+
+                case "empty":
+                    for (e = 0; e < 5; e++) {
+                        if (stack[e] != 0) {
+                            System.out.println("0 (값이 있다)");
+                        } else {
+                            System.out.println("1 (비어있다)");
+                            break;
+                        }
+                    }
+                    break;
+
+
                 default:
                     System.out.print("오류값입니다. push, pop, size, top 중에 입력하세요.");
             }
+
             for (loop = 4; loop >= 0; loop--) {
                 System.out.println(stack[loop]);
             }
+
+            Scanner input2 = new Scanner(System.in);
             System.out.print("계속할래? y or n : ");
-            an = input.nextLine();
+            an = input2.nextLine();
             if (an.equals(N)) {
                 break;
             }
