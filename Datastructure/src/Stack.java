@@ -4,7 +4,7 @@ public class Stack {
     public static void main(String[] args) {
 
         String op, an, N = "n";  //  op = operator 명령어 라는 뜻 an = answer은 계속 동잘 할껀지 대답 요구 변수 N은 n을 넣어줌으로써 문자열 비교를 위함
-        int stack[] = new int[5];   // 5만큼 크기의 배열 선언
+        int stack[] = new int[5];   // 5만큼 크기의 배열 선언ㅇㅏ휴..
         int loop, i, x, p, s, t, e, sum = 0, index = 0;     // x는 정수값 index는 배열 인덱스값 sun은 size크기 축적용
 
 
