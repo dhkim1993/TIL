@@ -1,0 +1,35 @@
+ 
+###CleanCode 란?
+    사실 저는 이제 막 개발 공부를 시작한 왕초보 개발자 꿈나무 입니다.
+    같이 공부하는 형한테 이것저것 많이 듣고 배우면서 공부하는 중인데 
+    오늘은 cleancode에 대해 들었고 예를 하나 보여주면서 설명해줬던걸
+    그대로 한번 적어봤습니다. 
+    
+    메모리의 할당을 얼만큼 최소화하고 빠른 속도로 실행시키며 깔끔하게 
+    코드를 짜는지가 개발자의 실력이라고 생각합니다.
+    정말 제일 기본적인 예를 하나 적어봤습니다. 
+    
+        String str = "";
+        StringBuilder str2 = new StringBuilder();
+        StringBuffer str3 = new StringBuffer();
+
+        for (int i = 0; i < 10; i++) {
+            str += "test";
+        }
+        System.out.println("1 : "+str);
+
+        for (int i = 0; i < 10; i++) {
+            str2.append("test");
+        }
+        System.out.println("2 : "+str2);
+
+        for (int i = 0; i < 10; i++) {
+            str3.append("test");
+        }
+        System.out.println("3 : "+str3);
+       
+        
+        1 : testtesttesttesttesttesttesttesttesttest
+        2 : testtesttesttesttesttesttesttesttesttest
+        3 : testtesttesttesttesttesttesttesttesttest
+        
