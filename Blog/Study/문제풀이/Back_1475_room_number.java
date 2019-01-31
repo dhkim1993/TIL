@@ -28,8 +28,6 @@ public class Back_1475_room_number {
             System.out.printf("%d:%d %n", i, cnt[i]);    //조건에 맞는 숫자가 몇개씩 증가했는지 보여준다.
         }
 
-        System.out.println();
-
         int max = cnt[0];       //제일많이 중복된 값을 추출하기위해 선언하고 첫번째 값을 max에 넣는다.
 
         for (int i = 0; i < num.length; i++) {  //max와 차례차례 비교하여 제일큰값을 max에넣는다.
@@ -53,4 +51,19 @@ public class Back_1475_room_number {
         System.out.printf("필요한 셋트 갯수는 %d개 입니다.", max);
     }
 }
-
+/*
+방번호입력 : 99667329
+9 9 6 6 7 3 2 9
+0:0
+1:0
+2:1
+3:1
+4:0
+5:0
+6:2 
+7:1
+8:0
+9:3
+max :3
+필요한 셋트 갯수는 3개 입니다.
+ */
