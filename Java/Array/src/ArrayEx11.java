@@ -6,7 +6,7 @@ public class ArrayEx11 {
         int i;
 
         for (i = 0; i < numArr.length; i++) {
-            numArr[i] = (int) (Math.random() * 10);
+            numArr[i] = (int) (Math.random() * 10); // 0~9
             System.out.print(numArr[i]);
         }
 
