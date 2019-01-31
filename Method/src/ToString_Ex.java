@@ -38,4 +38,18 @@ Arrays.toString() 함수는 배열을 System.out.println 으로 바로 출력하
 [I@511d50c0
 abcd
 
+
+
+Strinig to int
+
+String from = "123";
+int to = Integer.parseInt(from);
+
+
+int to String
+
+int from = 123;
+String to = Integer.toString(from);
+
+출처: https://nota.tistory.com/49 [nota's story]
  */
