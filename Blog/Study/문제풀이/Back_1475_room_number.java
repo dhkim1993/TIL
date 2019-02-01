@@ -60,7 +60,7 @@ public class Back_1475_room_number {
 3:1
 4:0
 5:0
-6:2 
+6:2
 7:1
 8:0
 9:3
