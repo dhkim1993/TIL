@@ -25,3 +25,4 @@ change() : x = 1000
 After change(d.x)
 main() : x = 10
  */
+
