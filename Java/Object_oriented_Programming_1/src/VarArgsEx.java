@@ -19,7 +19,6 @@ public class VarArgsEx {
         return result;
     }
 }
-
 /*
 100200300
 100-200-300-
