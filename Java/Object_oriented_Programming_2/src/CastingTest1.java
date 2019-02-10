@@ -1,5 +1,5 @@
 public class CastingTest1 {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         Car_ car = null;
         FireEngine fe = new FireEngine();
@@ -8,7 +8,7 @@ public class CastingTest1 {
         fe.water();
         car = fe;
         //car.water();  car 참조변수로는 FireEngine 메소드 사용 불가
-        fe2= (FireEngine)car;
+        fe2 = (FireEngine) car;
         fe2.water();
     }
 }
@@ -17,11 +17,11 @@ class Car_ {
     String color;
     int door;
 
-    void drive(){
-
+    void drive() {
+        System.out.println("drive, brrrrr~");
     }
-    void stop(){
-
+    void stop() {
+        System.out.println("stop!!!!");
     }
 }
 class FireEngine extends Car_ {
