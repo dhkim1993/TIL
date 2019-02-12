@@ -17,4 +17,5 @@ public class ExceptionEx2 {
 100
 Exception in thread "main" java.lang.ArithmeticException: / by zero
 	at ExceptionEx2.main(ExceptionEx2.java:8)
+	ArithmeticException 는 산술과정에서 오류가 있을때 발생하는 예외
  */
