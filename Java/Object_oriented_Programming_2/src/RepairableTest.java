@@ -82,3 +82,8 @@ class SCV extends GroundUnit implements Repairable {
         }
     }
 }
+/*
+Tank의 수리가 끝!
+Dropship의 수리가 끝!
+
+ */
