@@ -8,7 +8,7 @@ public class ExceptionEx4 {
             System.out.println(3);
             System.out.println(4);
         } catch (Exception e) {
-            System.out.println(5);
+            System.out.println(5);  //실행안됨 try 에서 오류가없어서 건너뜀
         }
 
         System.out.println(6);
