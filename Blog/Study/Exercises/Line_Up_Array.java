@@ -11,13 +11,13 @@ class GetArray {
         for (int i = 0; i < iArr.length; i++) {
             iArr[i] = input.nextInt();
         }
+
         return iArr;
     }
 }
 
 class SetArray {
     public static int[] setArray(int[] iArr) {
-
         for (int i = 0; i < iArr.length; i++) {
             if (iArr[i] / 1000 != 0) {
                 iArr[i] = (iArr[i] * 10000) / 10 / 10 / 10 / 10;
@@ -33,23 +33,21 @@ class SetArray {
                 continue;
             }
         }
-        for (int i = 0; i < iArr.length; i++)
-            System.out.print(iArr[i] + " ");
         return iArr;
     }
 }
 
 class LineUp {
-    public int[] lineUp(int[] iArr) {
-        for (int i = 0; i < iArr.length; i++) {
-            if (iArr[i] < iArr[i + 1]) {
-                int temp = iArr[i];
-                iArr[i] = iArr[i + 1];
-                iArr[i + 1] = temp;
+    public static int[] lineUp(int[] iArr) {
+        for (int i = 0; i < iArr.length - 1; i++) {
+            for (int j = i + 1; j < iArr.length; j++) {
+                if (iArr[i] < iArr[j]) {
+                    int temp = iArr[i];
+                    iArr[i] = iArr[j];
+                    iArr[j] = temp;
+                }
             }
         }
-        for (int i = 0; i < iArr.length; i++)
-            System.out.print(iArr[i] + " ");
         return iArr;
     }
 }
@@ -60,9 +58,19 @@ public class Line_Up_Array {
         GetArray g = new GetArray();
         SetArray s = new SetArray();
         LineUp l = new LineUp();
+        int[] result = {};
+
         try {
-            System.out.print(l.lineUp(s.setArray(g.getArray())));
+            result = (l.lineUp(s.setArray(g.getArray())));
         } catch (Exception e) {
         }
+
+        System.out.println();
+
+        for (int i = 0; i < result.length; i++)
+            System.out.print(result[i] + " ");
     }
 }
+/*
+iArr
+ */
