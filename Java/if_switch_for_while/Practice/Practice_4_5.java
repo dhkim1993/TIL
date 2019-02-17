@@ -7,7 +7,7 @@ class Practice_4_5 {
             System.out.println();
         } */
         int i = 0;
-        while (i<=10) {
+        while (i <= 10) {
             int j = 0;
             while (j <= i) {
                 System.out.print("*");
