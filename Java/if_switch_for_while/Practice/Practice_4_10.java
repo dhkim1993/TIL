@@ -4,7 +4,8 @@
 [주의] 문자열로 변환하지 말고 숫자로만 처리해야 한다.
 */
 public class Practice_4_10 {
-    public static void main(String[] args) {
+    private static int num;
+    /*public static void main(String[] args) {
         int num = 12345;
         int sum = 0;
         for (int i = 0; i < 5; i++) {
@@ -12,5 +13,20 @@ public class Practice_4_10 {
             num = num / 10;
         }
         System.out.println("sum=" + sum);
+    }*/
+
+
+
+    public Practice_4_10(int num) {
+        this.num = num;
+    }
+
+    public static int numbers(){
+        int sum = 0;
+        for (int i = 0; i < 5; i++) {
+            sum += num % 10;
+            num = num / 10;
+        }
+        return sum;
     }
 }

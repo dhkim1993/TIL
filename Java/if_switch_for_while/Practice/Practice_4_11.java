@@ -4,8 +4,19 @@
  1과 1부터 시작하는 피보나치수열의 10번째 수는 무엇인지 계산하는 프로그램을 완성하시오.
  */
 public class Practice_4_11 {
-    public static void main(String[] args) {
+     int num1;
+     int num2;
+     static int sum;
 
-        }
+    Practice_4_11(int num1, int num2) {
+        this.num1 = num1;
+        this.num2 = num2;
+        setSum(num1, num2);
     }
+
+    public static void setSum(int num1, int num2) {
+        Practice_4_11.sum = num1 + num2;
+    }
+
+
 }

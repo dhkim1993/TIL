@@ -11,12 +11,8 @@ public class Practice_4_9 {
         int sum = 0;
 
         for (int i = 0; i < str.length(); i++) {
-            System.out.println(str.charAt(i));
-            System.out.println(sum);
-
-
+            sum += (str.charAt(i) - '0');
         }
-
         System.out.println("sum=" + sum);
     }
 }
