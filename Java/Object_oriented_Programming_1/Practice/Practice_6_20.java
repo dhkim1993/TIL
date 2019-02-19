@@ -2,14 +2,17 @@
 public class Practice_6_20 {
 
     static int[] shuffle(int[] arr) {
-        int result[] = {};
-        for (int i = 0; i < arr.length; i++) {
-            result[i] = (int) (Math.random() * arr.length) + 1;
-            for (int j = 0; j <= i; j++) {
-                if (result[j] == result[i]) {
-                    i--;
-                    continue;
-                }
+
+        int r;
+        int w = 0;
+        int tmp;
+        while (w < arr.length) {
+            r = (int) (Math.random() * arr.length) + 1;
+            if (w != r) {
+                tmp = arr[w];
+                arr[w] = arr[r];
+                arr[r] = tmp;
+                w++;
             }
         }
         return arr;
@@ -23,3 +26,7 @@ public class Practice_6_20 {
         System.out.println(java.util.Arrays.toString(result));
     }
 }
+/*
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+[3, 9, 6, 7, 4, 8, 1, 5, 2]
+ */
