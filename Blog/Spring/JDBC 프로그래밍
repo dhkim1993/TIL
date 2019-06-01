@@ -1,0 +1,205 @@
+
+##JDBC 프로그래밍
+
+###JDBC 프로그래밍은 자바와 스프링 간 연결을 위해 하는 프로그래밍입니다.
+
+JSP와의 차이점이라면 JSP시절의 JDBC 프로그래밍은 connection 객체와 preparedstatements 객체, 
+resultset 객체를 연결시마다 만들고 연결이 끝나면 다시 .close() 메서드를 이용해 해제해야 했었습니다.
+
+###그러나 스프링의 JDBC 프로그래밍은 이와 사뭇 다르게 컴퓨터가 자원 생성과 회수를 모두 자동으로 해 줍니다.
+
+따라서 사용자가 쿼리 및 구문 작성에 에 좀 더 집중할 수 있도록 도와줍니다.
+
+일단 jdbc 사용을 위한 환경 설정을 보겠습니다.
+
+
+### 메이븐 의존성 설정(pom.xml).
+
+Spring JDBC, Connection Pool, OJDBC 관련 의존성 설정
+		<!-- Spring JDBC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+		<!-- Connection Pool -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+위의 코드를 pom.xml에 집어넣습니다.
+
+다음 이어서
+
+		<!-- Oracle JDBC Driver -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>12.1.0.1</version>
+		</dependency>
+를 작성합니다.
+
+단, ojdbc를 스프링에서 정식으로 지원하지 않는지라 pom.xml에 사설 저장소 주소를 새롭게 추가하는 번거로움이 있습니다.
+
+저장소 관련 설정은
+    <!-- Repository Setting -->
+    <repositories>
+    	<repository>
+    		<id>oracle</id>
+    		<name>ORACLE JDBC Repository</name>
+    		<url>http://maven.jahia.org/maven2</url>
+    	</repository>
+    </repositories>
+이것을 </project> 태그(맨 마지막 줄) 의 한 줄 위에 복붙하면 됩니다.
+
+<br>
+###접속 관련 정보 설정.
+
+src/main/resources 아래에 
+database 폴더 만든 후 내부에 jdbc.properties 파일 생성
+
+드라이버, url, id, pw 관련 정보 입력
+예시)<br>
+jdbc.driverClassName=oracle.jdbc.driver.OracleDriver<br>
+jdbc.url=jdbc:oracle:thin:@localhost:1521:xe<br>
+jdbc.username=scott<br>
+jdbc.password=tiger<br>
+
+
+dataSource 객체 생성 및 드라이버, url, id pw 관련 정보 주입
+root-context.xml 내부에 다음과 같이 작성합니다.
+
+<context:property-placeholder location="classpath:database/jdbc.properties" />
+위 코드는 아이디 비밀번호가 적혀있는 properties 파일을 스캔하는 코드입니다.
+
+```
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+<property name="driverClassName" value="${jdbc.driverClassName}" />
+<property name="url" value="${jdbc.url}" />
+<property name="username" value="${jdbc.username}" />
+<property name="password" value="${jdbc.password}" />
+</bean>
+```
+를 입력해 dataSource를 만들어줍니다.
+
+jsp때와는 다르게 이 파일 하나가 드라이버 + 접속 역할까지 담당합니다.
+
+이후 spring jdbc 사용시 jdbcTemplate 객체 생성 및 dataSource 객체 주입을 완료해야 합니다.
+(단, mybatis 사용시 생략 가능)
+
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<property name="dataSource" ref="dataSource" />
+</bean>
+
+<br>
+##구문
+
+쿼리문의 유형은 크게 3가지로 나뉩니다.<br>
+
+###multirow --> select구문에사용<br>
+select 문이면서 2 줄 이상의 자료를 리턴하는 케이스.<br>
+
+List query(String sql, Object[] args, RowMapper<T> rowMapper) Object[] args--> pre에 넘겨주는 데이터 배열 <br>
+PreparedStatement를 이용해서 select 수행할 경우<br>
+List query(String sql, RowMapper<T> rowMapper, Object... args)<br>
+PreparedStatement를 이용해서 select 수행할 경우<br>
+List query(String sql, RowMapper<T> rowMapper)<br>
+정적 SQL을 이용해서 select 수행할 경우<br>
+
+
+
+###singlerow --> select구문에사용<br>
+Object queryForObject(String sql, Class<T> requiredType, Object... args) -->return형이 정해저있지 않을때 사용  | Class<T> ex) Integer.Class | <br>
+Object queryForObject (String sql, Class<T> requiredType)<br>
+Object queryForObject(String sql, Object[] args, RowMapper rowMapper)<br>
+Object queryForObject (String sql, RowMapper<T> rowMapper)<br>
+
+이건잘안씀<br>
+int queryForInt(String sql, Object[] args)<br>
+int queryForInt(String sql)<br>
+
+
+###return 없음. --> update구문에 사용<br>
+public int update(String sql, Object[] args)<br>
+public int update(String sql, Object… args)<br>
+public int update(String sql)<br>
+
+#multirow --> query()<br>
+#singlerow --> queryForObject()<br>
+#return 없음 --> update()<br>
+
+###jsp에서 select구문과 insert, delete, update 구문에 적용하는 메서드가 달랐던 것처럼 스프링에서도 select구문과 나머지구문에 대한 실행 메서드가 다릅니다.<br>
+
+
+
+ 
+##rowMapper
+자동으로 VO 객체를 List 로 쓰기위해 자동으로 ArrayList를 생성주고 변환해준다. resultSet 처리를 해주는 인터페이스<br>
+RowMapper 인터페이스 
+    - ResultSet에서 값을 가져와 원하는 타입으로 매핑할 때 사용된다.<br>
+    - RowMapper은 jsp에서 resultSet에 저장된 다중 데이터를 조회할 때 사용한다.<br><br>
+  	
+  
+    public interface RowMapper{
+        Object mapRow(ResultSet rs, int rowNum) throws SQLException;<br>
+    }   
+
+
+<br>
+service 객체는 repository(dao) 객체를 주입받습니다. 			 dao.class -> defalt메서드1개 = 쿼리1개
+							
+repository(dao) 객체는 jdbcTemplate 객체를 주입받습니다.<br>
+jdbc(쿼리) -> <br>
+dao(동작메소드모은클래스 @Repository @Autowired JdbcTemplate jdbcTemplate;) 
+-> <br>
+service(dao메소드호출 @Service @Autowired IEmpDAO empDAO;) -><br>
+controller
+
+jdbcTemplate 객체는 dataSource 객체를 주입받습니다.
+
+즉 의존관계 설정을 4단계를 거쳐야 합니다.
+
+먼저 jdbcTemplate객체는 DB에 접근할 수 있는 통신기 역할을 합니다.
+
+dao클래스는 jdbcTemplate객체를 이용해 실제 데이터를 가져옵니다.
+단 dao클래스 내부의 메서드는 모두 한 번 호출에 하나의 쿼리문만 전송합니다.
+
+이는 중요한 부분인데 service와 dao가 나뉘는 이유이기도 합니다.
+service 클래스는 하나의 동작을 합니다. 그러나 하나의 동작을 반드시 하나의 쿼리문으로 수행하지만은 않습니다.
+
+예를들어 게시판 글을 조회한다고 하면, 조회수도 1 올라가야 하고(쿼리문 1번째 실행) 클릭한 글의 상세 정보를 DB에서 꺼내서 화면에 뿌려줘야(쿼리문 2번째 실행) 합니다.
+
+즉, dao에서는 각각의 메서드가 하나씩 쿼리문을 실행하지만 service에서는 dao의 두 개의 메서드를 순차적으로 실행합니다.
+
+
+따라서 패키지는 main 패키지, dao패키지, service패키지, vo패키지를 만들어 진행합니다.
+
+
+```package com.spring.myapp.hr.dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class EmpDAO implements IEmpDAO{
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	
+	@Override
+	public int getEmpCount() {
+		String sql = "select count(*) from employees";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}  
+}
+```
+
+
+
+
+
+
+
