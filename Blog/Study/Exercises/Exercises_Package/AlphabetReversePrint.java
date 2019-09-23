@@ -2,7 +2,7 @@ package Exercises_Package;
 
 
 class AlphabetReversePrint {
-    static String solution(String s) {
+    /*static String solution(String s) {
         String result = "";
         char[] cArr = new char[s.length()];
         for (int i = 0; i < s.length(); i++) {
@@ -38,11 +38,36 @@ class AlphabetReversePrint {
             }
         }
         return result;
-    }
+    }*/
 
+    private static String solution2(String str){
+
+        char[]A = new char[26];
+        char[]a = new char[26];
+        String result="";
+        for (int i = 26; i >=0; i--) {
+            A[i] = (char)(65+i);
+            a[i] = (char)(97+i);
+            System.out.println(A[i] +" "+ a[i]);
+        }
+        char[] cArr = str.toCharArray();
+
+        for (int i = 0; i < cArr.length; i++) {
+            if(cArr[i] == ' '){ continue;}
+            if('A'<=cArr[i] && cArr[i] >= 'Z'){
+                result+=A[cArr[i]-65];
+            }else if('a'<=cArr[i] && cArr[i] >= 'z'){
+                result+=a[cArr[i]-97];
+            }
+        }
+        System.out.println(result);
+        return result;
+    }
+    //A(65) -> Z(90) a(97) -> z(122) +25
+    //B(66) -> Y(89) b(98) -> y(121) +23
     public static void main(String[] args) {
-        String s = "I love you";
-        System.out.println(solution(s));
+        String str = "I love you";
+        System.out.println(solution2(str));
     }
 }
 /*

@@ -1,6 +1,7 @@
 package Exercises_Package;
 
-class 우형_ZeroCnt {
+class
+우형_ZeroCnt {
     static int solution(int N) {
         String num = Integer.toBinaryString(N);
         System.out.println(num);
